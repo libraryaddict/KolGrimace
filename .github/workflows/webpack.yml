@@ -30,7 +30,6 @@ jobs:
           git config user.name "Build Script"
           git config user.email "<>"
           git fetch --all
-          cp data built/data -r
           git switch release
           rm -r scripts/
           mv built/scripts scripts
