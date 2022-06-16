@@ -220,7 +220,7 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
       if (chancesBeforeRunningOut > 5 && leastStock > 10) {
         (0,external_kolmafia_namespaceObject.print)(
         "Grimace farming has " +
-        days.length +
+        chancesBeforeRunningOut +
         " chances to farm before you run out. You have " +
         this.getLeastStock() +
         " pills/days left. The next alien free day is after " +
@@ -257,8 +257,6 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
 
       "red");
 
-
-      (0,external_kolmafia_namespaceObject.waitq)(3);
     } }, { key: "burnMaps", value:
 
     function burnMaps() {
