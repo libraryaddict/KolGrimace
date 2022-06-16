@@ -1,4 +1,4 @@
-This is a script intended for Kingdom of Loathing to provide information about grimace, and when to farm for maps.
+This is a script intended for Kingdom of Loathing to provide information about when is an ideal time to farm for maps and how long you have left, as well as use said maps.
 
 This script does not farm maps.
 
