@@ -22,7 +22,7 @@ or
 
 `grimace <Param>`
 
-##Paramters.
+## Paramters.
 
 `info` - This is the default parameter, and does not need to be provided.
 
@@ -41,7 +41,7 @@ This is recommended to be run when overdrunk, and as such will currently fail to
 If you're overdrunk, then it will not require confirmation.
 This is because there's no advantages that I can think of, to be gained by using this when not overdrunk.
 
-##Examples of output text
+## Examples of output text
 
 ```text
 > grimace
