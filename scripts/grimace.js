@@ -181,8 +181,8 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
 
     function getLeastStock() {
       return Math.min(
-      (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill),
-      (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill));
+      (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.dogHairPill),
+      (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.distendPill));
 
     } }, { key: "isViableToCharacter", value:
 
@@ -214,7 +214,10 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
         days = days.filter((d) => d != 0);
       }
 
-      if (days.length > 8 && this.getLeastStock() > 10) {
+      var leastStock = this.getLeastStock();
+      var chancesBeforeRunningOut = days.filter((d) => d <= leastStock).length;
+
+      if (chancesBeforeRunningOut > 5 && leastStock > 10) {
         (0,external_kolmafia_namespaceObject.print)(
         "Grimace farming has " +
         days.length +
@@ -238,10 +241,20 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
         return;
       }
 
-      (0,external_kolmafia_namespaceObject.print)(
-      "You should do some grimace map farming soon, the best days are after: " +
-      days.join(", ") +
-      " rollovers",
+      if (leastStock > 0) {
+        (0,external_kolmafia_namespaceObject.print)("You should do some grimace farming soon, you will run out of pills in ".concat(
+        leastStock, " days and there are only ").concat(chancesBeforeRunningOut, " ideal days to farm before running out. The best days are after: ").concat(days.join(
+        ", "), " rollovers"),
+
+        "red");
+
+        return;
+      }
+
+      (0,external_kolmafia_namespaceObject.print)("You should do some grimace map farming, the best days are after: ".concat(
+      days.join(
+      ", "), " rollovers"),
+
       "red");
 
 
@@ -274,8 +287,10 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
 
       var maps = Math.min((0,external_kolmafia_namespaceObject.availableAmount)(this.mapGrimace), (0,external_kolmafia_namespaceObject.myAdventures)());
 
-      var dog = (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill);
-      var distend = (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill);
+      var dog =
+      (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.dogHairPill);
+      var distend =
+      (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.distendPill);
       var transponder = external_kolmafia_namespaceObject.Item.get("transporter transponder");
       var effect = (0,external_kolmafia_namespaceObject.effectModifier)(transponder, "Effect");
       var toUse = Math.ceil((maps - (0,external_kolmafia_namespaceObject.haveEffect)(effect)) / 30);
@@ -331,12 +346,12 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
       }
 
       (0,external_kolmafia_namespaceObject.print)(
-      "Done! You now have " +
-      (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill) +
+      "Done! You now have " + (
+      (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.distendPill)) +
       " " +
       this.distendPill.name +
-      ", " +
-      (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill) +
+      ", " + (
+      (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.dogHairPill)) +
       " " +
       this.dogHairPill.name,
       "blue");
