@@ -16,6 +16,7 @@ import {
   userConfirm,
   modifierEval,
   isHeadless,
+  storageAmount,
 } from "kolmafia";
 
 export class Grimace {
@@ -151,8 +152,8 @@ export class Grimace {
 
   getLeastStock(): number {
     return Math.min(
-      availableAmount(this.dogHairPill),
-      availableAmount(this.distendPill)
+      availableAmount(this.dogHairPill) + storageAmount(this.dogHairPill),
+      availableAmount(this.distendPill) + storageAmount(this.distendPill)
     );
   }
 
@@ -184,7 +185,10 @@ export class Grimace {
       days = days.filter((d) => d != 0);
     }
 
-    if (days.length > 8 && this.getLeastStock() > 10) {
+    let leastStock = this.getLeastStock();
+    let chancesBeforeRunningOut = days.filter((d) => d <= leastStock).length;
+
+    if (chancesBeforeRunningOut > 5 && leastStock > 10) {
       print(
         "Grimace farming has " +
           days.length +
@@ -208,10 +212,20 @@ export class Grimace {
       return;
     }
 
+    if (leastStock > 0) {
+      print(
+        `You should do some grimace farming soon, you will run out of pills in ${leastStock} days and there are only ${chancesBeforeRunningOut} ideal days to farm before running out. The best days are after: ${days.join(
+          ", "
+        )} rollovers`,
+        "red"
+      );
+      return;
+    }
+
     print(
-      "You should do some grimace map farming soon, the best days are after: " +
-        days.join(", ") +
-        " rollovers",
+      `You should do some grimace map farming, the best days are after: ${days.join(
+        ", "
+      )} rollovers`,
       "red"
     );
 
@@ -244,8 +258,10 @@ export class Grimace {
 
     let maps = Math.min(availableAmount(this.mapGrimace), myAdventures());
 
-    let dog = availableAmount(this.dogHairPill);
-    let distend = availableAmount(this.distendPill);
+    let dog =
+      availableAmount(this.dogHairPill) + storageAmount(this.dogHairPill);
+    let distend =
+      availableAmount(this.distendPill) + storageAmount(this.distendPill);
     let transponder = Item.get("transporter transponder");
     let effect = effectModifier(transponder, "Effect");
     let toUse = Math.ceil((maps - haveEffect(effect)) / 30);
@@ -302,11 +318,11 @@ export class Grimace {
 
     print(
       "Done! You now have " +
-        availableAmount(this.distendPill) +
+        (availableAmount(this.distendPill) + storageAmount(this.distendPill)) +
         " " +
         this.distendPill.name +
         ", " +
-        availableAmount(this.dogHairPill) +
+        (availableAmount(this.dogHairPill) + storageAmount(this.dogHairPill)) +
         " " +
         this.dogHairPill.name,
       "blue"
