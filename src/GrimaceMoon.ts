@@ -191,7 +191,7 @@ export class Grimace {
     if (chancesBeforeRunningOut > 5 && leastStock > 10) {
       print(
         "Grimace farming has " +
-          days.length +
+          chancesBeforeRunningOut +
           " chances to farm before you run out. You have " +
           this.getLeastStock() +
           " pills/days left. The next alien free day is after " +
@@ -228,8 +228,6 @@ export class Grimace {
       )} rollovers`,
       "red"
     );
-
-    waitq(3);
   }
 
   burnMaps() {

@@ -40,3 +40,15 @@ This is recommended to be run when overdrunk, and as such will currently fail to
 
 If you're overdrunk, then it will not require confirmation.
 This is because there's no advantages that I can think of, to be gained by using this when not overdrunk.
+
+##Examples of output text
+
+```text
+> grimace
+
+You should do some grimace farming soon, you will run out in 20 days and have only 3 chances before running out. The best days are after: 12, 13, 14, 27, 29, 30, 32, 46, 47 rollovers
+
+> grimace
+
+Grimace farming has 17 chances to farm before you run out. You have 101 pills/days left. The next alien free day is after 12 rollovers occurs
+```
