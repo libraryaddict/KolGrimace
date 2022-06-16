@@ -6,7 +6,7 @@ There is another script, not made by me, that does farm maps. You can check it o
 
 https://github.com/horrible-little-slime/garfo
 
-To install the script, use
+## To install the script, use
 
 ```text
 svn checkout https://github.com/libraryaddict/KolGrimace/branches/release/
@@ -22,7 +22,7 @@ or
 
 `grimace <Param>`
 
-## Paramters.
+## Parameters
 
 `info` - This is the default parameter, and does not need to be provided.
 
