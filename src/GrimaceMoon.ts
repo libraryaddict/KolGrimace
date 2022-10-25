@@ -5,7 +5,6 @@ import {
   fullnessLimit,
   inebrietyLimit,
   print,
-  waitq,
   Item,
   myInebriety,
   effectModifier,
@@ -26,7 +25,9 @@ export class Grimace {
   hamCrashed: number = Date.parse("2006-06-03T00:00:00.000-03:30");
 
   getMoonPhase(days: number): number {
-    while (days < 0) days += 96;
+    while (days < 0) {
+      days += 96;
+    }
 
     return (gamedayToInt() + days + 16) % 16;
   }
@@ -107,38 +108,60 @@ export class Grimace {
     }
   }
 
-  isAliens(moonPhrase: number, day: number): boolean {
-    let phraseStep = (moonPhrase + 16) % 16;
-    let ronaldPhrase = phraseStep % 8;
-    let grimacePhase = Math.floor(phraseStep / 2);
-    let grimaceDarkness = Math.abs(grimacePhase - 4);
+  /**
+   * Only aliens free day when grimace has 1 or less lit up
+   */
+  isAliens(day: number): boolean {
+    return this.getAlienEncounters(day) > 0;
+  }
 
-    let dayms = 24 * 60 * 60 * 1000;
+  getAlienEncounters(day: number): number {
+    const lit = this.getGrimaceLight(day);
 
-    let collis = Math.floor(
+    if (lit <= 1) {
+      return 0;
+    }
+
+    return lit / 12;
+  }
+
+  /**
+   * @param day
+   * @returns There are 5 parts of the moon, how many of them are lit up? At 1 or 0, alien free!
+   */
+  getGrimaceLight(day: number): number {
+    const moonPhrase = this.getMoonPhase(day);
+    const phraseStep = (moonPhrase + 16) % 16;
+    const ronaldPhrase = phraseStep % 8;
+    const grimacePhase = Math.floor(phraseStep / 2);
+    const grimaceDarkness = Math.abs(grimacePhase - 4);
+
+    const dayms = 24 * 60 * 60 * 1000;
+
+    const collis = Math.floor(
       (Date.now() + day * dayms - this.hamCrashed) / (24 * 60 * 60 * 1000)
     );
 
-    let hamburglar = (collis * 2) % 11;
-    let hamDarkness = this.getHamburglarDarkness(
+    const hamburglar = (collis * 2) % 11;
+    const hamDarkness = this.getHamburglarDarkness(
       ronaldPhrase,
       grimacePhase,
       hamburglar
     );
-    let grimaceLight = 4 - grimaceDarkness;
-    let grimaceEffect = 4 - grimaceLight + hamDarkness;
+    const grimaceLight = 4 - grimaceDarkness;
+    const grimaceLitSegments = 5 - (4 - grimaceLight + hamDarkness);
 
-    return grimaceEffect < 4;
+    return grimaceLitSegments;
   }
 
   getNextAlienFreeDays(
     upToDay: number = Math.max(50, this.getLeastStock()),
     maxAmount: number = 200
   ): number[] {
-    let numbers = [];
+    const numbers = [];
 
     for (let day = 0; numbers.length < maxAmount && day < upToDay; day++) {
-      let aliens = this.isAliens(this.getMoonPhase(day), day);
+      const aliens = this.isAliens(day);
 
       if (aliens) {
         continue;
@@ -185,8 +208,23 @@ export class Grimace {
       days = days.filter((d) => d != 0);
     }
 
-    let leastStock = this.getLeastStock();
-    let chancesBeforeRunningOut = days.filter((d) => d <= leastStock).length;
+    const encounters = () => {
+      if (days.includes(0)) {
+        return;
+      }
+
+      const chances = [...Array(10).keys()].map(
+        (i) => Math.round(100 * this.getAlienEncounters(i)) + "%"
+      );
+
+      print(
+        `Alien encounters chances, starting today: ${chances.join(", ")}`,
+        "gray"
+      );
+    };
+
+    const leastStock = this.getLeastStock();
+    const chancesBeforeRunningOut = days.filter((d) => d <= leastStock).length;
 
     if (chancesBeforeRunningOut > 5 && leastStock > 10) {
       print(
@@ -201,6 +239,8 @@ export class Grimace {
           " occurs",
         "gray"
       );
+
+      encounters();
       return;
     }
 
@@ -219,15 +259,16 @@ export class Grimace {
         )} rollovers`,
         "red"
       );
-      return;
+    } else {
+      print(
+        `You should do some grimace map farming, the best days are after: ${days.join(
+          ", "
+        )} rollovers`,
+        "red"
+      );
     }
 
-    print(
-      `You should do some grimace map farming, the best days are after: ${days.join(
-        ", "
-      )} rollovers`,
-      "red"
-    );
+    encounters();
   }
 
   burnMaps() {
@@ -237,7 +278,7 @@ export class Grimace {
       if (isHeadless()) {
         return;
       } else {
-        let confirm = userConfirm(
+        const confirm = userConfirm(
           "Would you like to burn maps anyways? Defaults to no in 15 seconds.",
           15000,
           false
@@ -254,22 +295,22 @@ export class Grimace {
       return;
     }
 
-    let maps = Math.min(availableAmount(this.mapGrimace), myAdventures());
+    const maps = Math.min(availableAmount(this.mapGrimace), myAdventures());
 
-    let dog =
+    const dog =
       availableAmount(this.dogHairPill) + storageAmount(this.dogHairPill);
-    let distend =
+    const distend =
       availableAmount(this.distendPill) + storageAmount(this.distendPill);
-    let transponder = Item.get("transporter transponder");
-    let effect = effectModifier(transponder, "Effect");
-    let toUse = Math.ceil((maps - haveEffect(effect)) / 30);
+    const transponder = Item.get("transporter transponder");
+    const effect = effectModifier(transponder, "Effect");
+    const toUse = Math.ceil((maps - haveEffect(effect)) / 30);
 
-    let totalIdeal = (maps + dog + distend) / 2;
+    const totalIdeal = (maps + dog + distend) / 2;
     let distendMissing = Math.ceil(Math.max(totalIdeal - distend, 0));
     let dogMissing = maps - distendMissing;
 
     if (maps < 5 && toUse > 0) {
-      let confirm = userConfirm(
+      const confirm = userConfirm(
         "You have less than 5 maps, and will need to use a transponder. Confirm?"
       );
 
@@ -329,7 +370,7 @@ export class Grimace {
 }
 
 export function main(goal: string = "info") {
-  let grimace = new Grimace();
+  const grimace = new Grimace();
 
   if (goal == "maps") {
     grimace.burnMaps();
