@@ -46,7 +46,7 @@ __webpack_require__.d(__webpack_exports__, {
 ;// CONCATENATED MODULE: external "kolmafia"
 const external_kolmafia_namespaceObject = require("kolmafia");
 ;// CONCATENATED MODULE: ./src/GrimaceMoon.ts
-function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);Object.defineProperty(Constructor, "prototype", { writable: false });return Constructor;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);Object.defineProperty(Constructor, "prototype", { writable: false });return Constructor;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this, Grimace);_defineProperty(this, "dogHairPill",
     external_kolmafia_namespaceObject.Item.get("Dog Hair Pill"));_defineProperty(this, "distendPill",
@@ -55,7 +55,9 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
     Date.parse("2006-06-03T00:00:00.000-03:30"));}_createClass(Grimace, [{ key: "getMoonPhase", value:
 
     function getMoonPhase(days) {
-      while (days < 0) {days += 96;}
+      while (days < 0) {
+        days += 96;
+      }
 
       return ((0,external_kolmafia_namespaceObject.gamedayToInt)() + days + 16) % 16;
     } }, { key: "getHamburglarDarkness", value:
@@ -134,9 +136,31 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
         default:
           return 0;}
 
-    } }, { key: "isAliens", value:
+    }
 
-    function isAliens(moonPhrase, day) {
+    /**
+     * Only aliens free day when grimace has 1 or less lit up
+     */ }, { key: "isAliens", value:
+    function isAliens(day) {
+      return this.getAlienEncounters(day) > 0;
+    } }, { key: "getAlienEncounters", value:
+
+    function getAlienEncounters(day) {
+      var lit = this.getGrimaceLight(day);
+
+      if (lit <= 1) {
+        return 0;
+      }
+
+      return lit / 12;
+    }
+
+    /**
+     * @param day
+     * @returns There are 5 parts of the moon, how many of them are lit up? At 1 or 0, alien free!
+     */ }, { key: "getGrimaceLight", value:
+    function getGrimaceLight(day) {
+      var moonPhrase = this.getMoonPhase(day);
       var phraseStep = (moonPhrase + 16) % 16;
       var ronaldPhrase = phraseStep % 8;
       var grimacePhase = Math.floor(phraseStep / 2);
@@ -155,9 +179,9 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
       hamburglar);
 
       var grimaceLight = 4 - grimaceDarkness;
-      var grimaceEffect = 4 - grimaceLight + hamDarkness;
+      var grimaceLitSegments = 5 - (4 - grimaceLight + hamDarkness);
 
-      return grimaceEffect < 4;
+      return grimaceLitSegments;
     } }, { key: "getNextAlienFreeDays", value:
 
     function getNextAlienFreeDays()
@@ -167,7 +191,7 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
       var numbers = [];
 
       for (var day = 0; numbers.length < maxAmount && day < upToDay; day++) {
-        var aliens = this.isAliens(this.getMoonPhase(day), day);
+        var aliens = this.isAliens(day);
 
         if (aliens) {
           continue;
@@ -214,6 +238,21 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
         days = days.filter((d) => d != 0);
       }
 
+      var encounters = () => {
+        if (days.includes(0)) {
+          return;
+        }
+
+        var chances = _toConsumableArray(Array(10).keys()).map(
+        (i) => Math.round(100 * this.getAlienEncounters(i)) + "%");
+
+
+        (0,external_kolmafia_namespaceObject.print)("Alien encounters chances, starting today: ".concat(
+        chances.join(", ")),
+        "gray");
+
+      };
+
       var leastStock = this.getLeastStock();
       var chancesBeforeRunningOut = days.filter((d) => d <= leastStock).length;
 
@@ -230,6 +269,8 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
         " occurs",
         "gray");
 
+
+        encounters();
         return;
       }
 
@@ -248,15 +289,16 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
 
         "red");
 
-        return;
+      } else {
+        (0,external_kolmafia_namespaceObject.print)("You should do some grimace map farming, the best days are after: ".concat(
+        days.join(
+        ", "), " rollovers"),
+
+        "red");
+
       }
 
-      (0,external_kolmafia_namespaceObject.print)("You should do some grimace map farming, the best days are after: ".concat(
-      days.join(
-      ", "), " rollovers"),
-
-      "red");
-
+      encounters();
     } }, { key: "burnMaps", value:
 
     function burnMaps() {
