@@ -309,7 +309,7 @@ export class Grimace {
     let distendMissing = Math.ceil(Math.max(totalIdeal - distend, 0));
     let dogMissing = maps - distendMissing;
 
-    if (maps < 5 && toUse > 0) {
+    /* if (maps < 5 && toUse > 0) {
       const confirm = userConfirm(
         "You have less than 5 maps, and will need to use a transponder. Confirm?"
       );
@@ -318,7 +318,7 @@ export class Grimace {
         print("User did not confirm, aborted.", "red");
         return;
       }
-    }
+    }*/
 
     print(
       "Plan: We will be using " +
