@@ -1,6 +1,7 @@
 This is a script intended for Kingdom of Loathing to provide information about when is an ideal time to farm for maps and how long you have left, as well as use said maps.
+It can also tell you the chances of meeting an alien today and in the next several days if you don't want to wait for an alien free day.
 
-This script does not farm maps.
+This script does not farm maps itself.
 
 There is another script, not made by me, that does farm maps. You can check it out, though I don't use it and have not tried it.
 
@@ -9,7 +10,7 @@ https://github.com/horrible-little-slime/garfo
 ## To install the script, use
 
 ```text
-svn checkout https://github.com/libraryaddict/KolGrimace/branches/release/
+git checkout libraryaddict/KolGrimace release
 ```
 
 To use this script, there are two parameters you can provide.
@@ -47,8 +48,10 @@ This is because there's no advantages that I can think of, to be gained by using
 > grimace
 
 You should do some grimace farming soon, you will run out in 20 days and have only 3 chances before running out. The best days are after: 12, 13, 14, 27, 29, 30, 32, 46, 47 rollovers
+Alien encounters chances, starting today: 25%, 25%, 25%, 25%, 33%, 42%, 25%, 33%, 17%, 25%
 
 > grimace
 
 Grimace farming has 17 chances to farm before you run out. You have 101 pills/days left. The next alien free day is after 12 rollovers occurs
+Alien encounters chances, starting today: 25%, 25%, 25%, 25%, 33%, 42%, 25%, 33%, 17%, 25%
 ```
