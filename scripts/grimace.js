@@ -39,14 +39,14 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "Grimace": () => (/* binding */ Grimace),
-  "main": () => (/* binding */ main)
+  Grimace: () => (/* binding */ Grimace),
+  main: () => (/* binding */ main)
 });
 
 ;// CONCATENATED MODULE: external "kolmafia"
 const external_kolmafia_namespaceObject = require("kolmafia");
 ;// CONCATENATED MODULE: ./src/GrimaceMoon.ts
-function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);Object.defineProperty(Constructor, "prototype", { writable: false });return Constructor;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];return arr2;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);Object.defineProperty(Constructor, "prototype", { writable: false });return Constructor;}function _defineProperty(obj, key, value) {key = _toPropertyKey(key);if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toPropertyKey(arg) {var key = _toPrimitive(arg, "string");return typeof key === "symbol" ? key : String(key);}function _toPrimitive(input, hint) {if (typeof input !== "object" || input === null) return input;var prim = input[Symbol.toPrimitive];if (prim !== undefined) {var res = prim.call(input, hint || "default");if (typeof res !== "object") return res;throw new TypeError("@@toPrimitive must return a primitive value.");}return (hint === "string" ? String : Number)(input);}
 
 var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this, Grimace);_defineProperty(this, "dogHairPill",
     external_kolmafia_namespaceObject.Item.get("Dog Hair Pill"));_defineProperty(this, "distendPill",
@@ -134,8 +134,8 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
           return 1;
 
         default:
-          return 0;}
-
+          return 0;
+      }
     }
 
     /**
@@ -169,15 +169,15 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
       var dayms = 24 * 60 * 60 * 1000;
 
       var collis = Math.floor(
-      (Date.now() + day * dayms - this.hamCrashed) / (24 * 60 * 60 * 1000));
-
+        (Date.now() + day * dayms - this.hamCrashed) / (24 * 60 * 60 * 1000)
+      );
 
       var hamburglar = collis * 2 % 11;
       var hamDarkness = this.getHamburglarDarkness(
-      ronaldPhrase,
-      grimacePhase,
-      hamburglar);
-
+        ronaldPhrase,
+        grimacePhase,
+        hamburglar
+      );
       var grimaceLight = 4 - grimaceDarkness;
       var grimaceLitSegments = 5 - (4 - grimaceLight + hamDarkness);
 
@@ -205,9 +205,9 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
 
     function getLeastStock() {
       return Math.min(
-      (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.dogHairPill),
-      (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.distendPill));
-
+        (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.dogHairPill),
+        (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.distendPill)
+      );
     } }, { key: "isViableToCharacter", value:
 
     function isViableToCharacter() {
@@ -225,15 +225,15 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
 
       if ((0,external_kolmafia_namespaceObject.modifierEval)("G") >= 4 != days.includes(0)) {
         (0,external_kolmafia_namespaceObject.print)(
-        "My code is wrong about the moon! Best to ping Irrat! My code disagrees with proven code. Their code: Today safe to do grimace moon? " + (
-        (0,external_kolmafia_namespaceObject.modifierEval)("G") >= 4),
-        "red");
-
+          "My code is wrong about the moon! Best to ping Irrat! My code disagrees with proven code. Their code: Today safe to do grimace moon? " + (
+          (0,external_kolmafia_namespaceObject.modifierEval)("G") >= 4),
+          "red"
+        );
       } else if (days.includes(0)) {
         (0,external_kolmafia_namespaceObject.print)(
-        "Today is an alien free day! You could do grimace map farming!",
-        "blue");
-
+          "Today is an alien free day! You could do grimace map farming!",
+          "blue"
+        );
 
         days = days.filter((d) => d != 0);
       }
@@ -244,13 +244,13 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
         }
 
         var chances = _toConsumableArray(Array(10).keys()).map(
-        (i) => Math.round(100 * this.getAlienEncounters(i)) + "%");
-
+          (i) => Math.round(100 * this.getAlienEncounters(i)) + "%"
+        );
 
         (0,external_kolmafia_namespaceObject.print)("Alien encounters chances, starting today: ".concat(
-        chances.join(", ")),
-        "gray");
-
+          chances.join(", ")),
+        "gray"
+        );
       };
 
       var leastStock = this.getLeastStock();
@@ -258,17 +258,17 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
 
       if (chancesBeforeRunningOut > 5 && leastStock > 10) {
         (0,external_kolmafia_namespaceObject.print)(
-        "Grimace farming has " +
-        chancesBeforeRunningOut +
-        " chances to farm before you run out. You have " +
-        this.getLeastStock() +
-        " pills/days left. The next alien free day is after " +
-        days[0] +
-        " rollover" + (
-        days[0] != 1 ? "s" : "") +
-        " occurs",
-        "gray");
-
+          "Grimace farming has " +
+          chancesBeforeRunningOut +
+          " chances to farm before you run out. You have " +
+          this.getLeastStock() +
+          " pills/days left. The next alien free day is after " +
+          days[0] +
+          " rollover" + (
+          days[0] != 1 ? "s" : "") +
+          " occurs",
+          "gray"
+        );
 
         encounters();
         return;
@@ -276,26 +276,26 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
 
       if (days.length == 0) {
         (0,external_kolmafia_namespaceObject.print)(
-        "Oh dear, no days available.. This smells like a bug unfortunately.",
-        "red");
-
+          "Oh dear, no days available.. This smells like a bug unfortunately.",
+          "red"
+        );
         return;
       }
 
       if (leastStock > 0) {
         (0,external_kolmafia_namespaceObject.print)("You should do some grimace farming soon, you will run out of pills in ".concat(
-        leastStock, " days and there are only ").concat(chancesBeforeRunningOut, " ideal days to farm before running out. The best days are after: ").concat(days.join(
-        ", "), " rollovers"),
-
-        "red");
-
+          leastStock, " days and there are only ").concat(chancesBeforeRunningOut, " ideal days to farm before running out. The best days are after: ").concat(days.join(
+          ", "
+        ), " rollovers"),
+        "red"
+        );
       } else {
         (0,external_kolmafia_namespaceObject.print)("You should do some grimace map farming, the best days are after: ".concat(
-        days.join(
-        ", "), " rollovers"),
-
-        "red");
-
+          days.join(
+            ", "
+          ), " rollovers"),
+        "red"
+        );
       }
 
       encounters();
@@ -309,10 +309,10 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
           return;
         } else {
           var confirm = (0,external_kolmafia_namespaceObject.userConfirm)(
-          "Would you like to burn maps anyways? Defaults to no in 15 seconds.",
-          15000,
-          false);
-
+            "Would you like to burn maps anyways? Defaults to no in 15 seconds.",
+            15000,
+            false
+          );
 
           if (!confirm) {
             return;
@@ -339,33 +339,33 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
       var distendMissing = Math.ceil(Math.max(totalIdeal - distend, 0));
       var dogMissing = maps - distendMissing;
 
-      if (maps < 5 && toUse > 0) {
-        var _confirm = (0,external_kolmafia_namespaceObject.userConfirm)(
-        "You have less than 5 maps, and will need to use a transponder. Confirm?");
-
-
-        if (!_confirm) {
-          (0,external_kolmafia_namespaceObject.print)("User did not confirm, aborted.", "red");
+      /* if (maps < 5 && toUse > 0) {
+        const confirm = userConfirm(
+          "You have less than 5 maps, and will need to use a transponder. Confirm?"
+        );
+         if (!confirm) {
+          print("User did not confirm, aborted.", "red");
           return;
         }
-      }
+      }*/
+
 
       (0,external_kolmafia_namespaceObject.print)(
-      "Plan: We will be using " +
-      maps +
-      " maps, using " +
-      toUse +
-      " transponders. We will acquire " +
-      distendMissing +
-      " distend pills, and " +
-      dogMissing +
-      " dog pills. You will have " + (
-      distend + distendMissing) +
-      " distend pills, " + (
-      dog + dogMissing) +
-      " dog pills at the end of this.",
-      "blue");
-
+        "Plan: We will be using " +
+        maps +
+        " maps, using " +
+        toUse +
+        " transponders. We will acquire " +
+        distendMissing +
+        " distend pills, and " +
+        dogMissing +
+        " dog pills. You will have " + (
+        distend + distendMissing) +
+        " distend pills, " + (
+        dog + dogMissing) +
+        " dog pills at the end of this.",
+        "blue"
+      );
 
       if (toUse > 0) {
         (0,external_kolmafia_namespaceObject.use)(transponder, toUse);
@@ -386,16 +386,16 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
       }
 
       (0,external_kolmafia_namespaceObject.print)(
-      "Done! You now have " + (
-      (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.distendPill)) +
-      " " +
-      this.distendPill.name +
-      ", " + (
-      (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.dogHairPill)) +
-      " " +
-      this.dogHairPill.name,
-      "blue");
-
+        "Done! You now have " + (
+        (0,external_kolmafia_namespaceObject.availableAmount)(this.distendPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.distendPill)) +
+        " " +
+        this.distendPill.name +
+        ", " + (
+        (0,external_kolmafia_namespaceObject.availableAmount)(this.dogHairPill) + (0,external_kolmafia_namespaceObject.storageAmount)(this.dogHairPill)) +
+        " " +
+        this.dogHairPill.name,
+        "blue"
+      );
     } }]);return Grimace;}();
 
 
@@ -408,9 +408,9 @@ function main() {var goal = arguments.length > 0 && arguments[0] !== undefined ?
     grimace.printShouldRun(false);
   } else {
     (0,external_kolmafia_namespaceObject.print)(
-    "Provide 'maps' to burn maps to turn them into pills, or no args (or 'info') to view information about grimace map farming",
-    "red");
-
+      "Provide 'maps' to burn maps to turn them into pills, or no args (or 'info') to view information about grimace map farming",
+      "red"
+    );
   }
 }
 var __webpack_export_target__ = exports;
