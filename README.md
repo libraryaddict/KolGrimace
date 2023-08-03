@@ -42,6 +42,10 @@ This is recommended to be run when overdrunk, and as such will currently fail to
 If you're overdrunk, then it will not require confirmation.
 This is because there's no advantages that I can think of, to be gained by using this when not overdrunk.
 
+`pref`
+
+This will quietly save a property under `_grimaceAlienEncounters` which are the chances of encountering aliens in the next 10 days. This was added as some form of library/script support.
+
 ## Examples of output text
 
 ```text
