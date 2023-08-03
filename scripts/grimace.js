@@ -214,9 +214,19 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
       return (
         (0,external_kolmafia_namespaceObject.pullsRemaining)() == -1 && (0,external_kolmafia_namespaceObject.fullnessLimit)() > 0 && (0,external_kolmafia_namespaceObject.inebrietyLimit)() > 0);
 
+    } }, { key: "saveEncountersPref", value:
+
+    function saveEncountersPref() {
+      var chances = _toConsumableArray(Array(10).keys()).map((i) =>
+      Math.round(100 * this.getAlienEncounters(i))
+      );
+
+      (0,external_kolmafia_namespaceObject.setProperty)("_grimaceAlienEncounters", chances.join(","));
     } }, { key: "printShouldRun", value:
 
     function printShouldRun() {var checkViable = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      this.saveEncountersPref();
+
       if (checkViable && !this.isViableToCharacter()) {
         return;
       }
@@ -406,6 +416,8 @@ function main() {var goal = arguments.length > 0 && arguments[0] !== undefined ?
     grimace.burnMaps();
   } else if (goal == "info") {
     grimace.printShouldRun(false);
+  } else if (goal == "pref") {
+    grimace.saveEncountersPref();
   } else {
     (0,external_kolmafia_namespaceObject.print)(
       "Provide 'maps' to burn maps to turn them into pills, or no args (or 'info') to view information about grimace map farming",
