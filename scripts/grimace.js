@@ -420,7 +420,7 @@ function main() {var goal = arguments.length > 0 && arguments[0] !== undefined ?
     grimace.saveEncountersPref();
   } else {
     (0,external_kolmafia_namespaceObject.print)(
-      "Provide 'maps' to burn maps to turn them into pills, or no args (or 'info') to view information about grimace map farming",
+      "Provide 'maps' to burn maps to turn them into pills, or no args (or 'info') to view information about grimace map farming. Provide 'pref' to quietly save a pref of the next 10 days chances of encountering an alien",
       "red"
     );
   }
