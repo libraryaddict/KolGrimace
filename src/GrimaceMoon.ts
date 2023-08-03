@@ -186,7 +186,17 @@ export class Grimace {
     );
   }
 
+  saveEncountersPref() {
+    const chances = [...Array(10).keys()].map((i) =>
+      Math.round(100 * this.getAlienEncounters(i))
+    );
+
+    setProperty("_grimaceAlienEncounters", chances.join(","));
+  }
+
   printShouldRun(checkViable: boolean = false) {
+    this.saveEncountersPref();
+
     if (checkViable && !this.isViableToCharacter()) {
       return;
     }
@@ -376,6 +386,8 @@ export function main(goal: string = "info") {
     grimace.burnMaps();
   } else if (goal == "info") {
     grimace.printShouldRun(false);
+  } else if (goal == "pref") {
+    grimace.saveEncountersPref();
   } else {
     print(
       "Provide 'maps' to burn maps to turn them into pills, or no args (or 'info') to view information about grimace map farming",
