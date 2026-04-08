@@ -2,6 +2,7 @@
 
 module.exports = function (api) {
   api.cache(true);
+
   return {
     exclude: [],
     presets: [
@@ -13,10 +14,6 @@ module.exports = function (api) {
           corejs: "3.8.0",
         },
       ],
-    ],
-    plugins: [
-      "@babel/plugin-proposal-class-properties",
-      "@babel/plugin-proposal-object-rest-spread",
     ],
     retainLines: true,
     compact: false,
