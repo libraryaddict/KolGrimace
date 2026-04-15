@@ -381,6 +381,11 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
       "blue"
       );
 
+      if ((0,external_kolmafia_namespaceObject.availableAmount)(this.mapGrimace) > availableMaps - maps) {
+        this.burnMaps();
+        return;
+      }
+
       if ((0,external_kolmafia_namespaceObject.availableAmount)(this.mapGrimace) > 0) {
         (0,external_kolmafia_namespaceObject.print)("You have ".concat(
           (0,external_kolmafia_namespaceObject.availableAmount)(this.mapGrimace), " grimace maps left"),
@@ -400,9 +405,21 @@ var Grimace = /*#__PURE__*/function () {function Grimace() {_classCallCheck(this
     function runChoicesManually(prioritized) {
       // Ensure that minor differences in how kol does stuff doesn't throw this script off
       prioritized = prioritized.map((s) => this.sanitizeKey(s));
+      var lastChoices = "";
 
       for (var i = 0; i < 10 && (0,external_kolmafia_namespaceObject.handlingChoice)(); i++) {
         var choices = (0,external_kolmafia_namespaceObject.availableChoiceOptions)();
+        var currentChoices = JSON.stringify(choices);
+
+        if (lastChoices == currentChoices) {
+          (0,external_kolmafia_namespaceObject.print)("Did the server hiccup? Choices appear unchanged. Let's try to fix that..");
+          (0,external_kolmafia_namespaceObject.visitUrl)("choice.php");
+
+          choices = (0,external_kolmafia_namespaceObject.availableChoiceOptions)();
+          currentChoices = JSON.stringify(choices);
+        }
+
+        lastChoices = currentChoices;
         var optionToSelect = void 0;
 
         for (var _i2 = 0, _Object$keys = Object.keys(choices); _i2 < _Object$keys.length; _i2++) {var key = _Object$keys[_i2];
