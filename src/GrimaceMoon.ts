@@ -354,6 +354,11 @@ export class Grimace {
       "blue",
     );
 
+    if (availableAmount(this.mapGrimace) > availableMaps - maps) {
+      this.burnMaps();
+      return;
+    }
+
     if (availableAmount(this.mapGrimace) > 0) {
       print(
         `You have ${availableAmount(this.mapGrimace)} grimace maps left`,
@@ -373,9 +378,21 @@ export class Grimace {
   runChoicesManually(prioritized: string[]) {
     // Ensure that minor differences in how kol does stuff doesn't throw this script off
     prioritized = prioritized.map((s) => this.sanitizeKey(s));
+    let lastChoices = "";
 
     for (let i = 0; i < 10 && handlingChoice(); i++) {
-      const choices = availableChoiceOptions();
+      let choices = availableChoiceOptions();
+      let currentChoices = JSON.stringify(choices);
+
+      if (lastChoices == currentChoices) {
+        print("Did the server hiccup? Choices appear unchanged. Let's try to fix that..");
+        visitUrl("choice.php");
+  
+        choices = availableChoiceOptions();
+        currentChoices = JSON.stringify(choices);
+      }
+
+      lastChoices = currentChoices;
       let optionToSelect: string;
 
       for (const key of Object.keys(choices)) {
